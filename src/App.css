@@ -1,0 +1,167 @@
+/* -------------- Reset ------------------------- */
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+}
+
+body {
+  line-height: 1.5;
+  min-height: 100vh;
+  background-color: var(--bg-clr);
+  color: var(--fg-clr);
+  overflow-x: hidden;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------Colors-------------------------------------------------------------- */
+:root {
+  --c-dark-blue: hsl(209, 23%, 22%);
+  --c-dark-bg-blue: hsl(207, 26%, 17%);
+  --c-light-blue: hsl(200, 15%, 8%);
+  --c-light-gray: hsl(0, 0%, 52%);
+  --c-light-bg-gray: hsl(0, 0%, 98%);
+  --c-white: hsl(0, 0%, 100%);
+}
+
+html {
+  --card-bg-clr: var(--c-white);
+  --bg-clr: var(--c-light-bg-gray);
+  --fg-clr: black;
+}
+
+html.dark {
+  --card-bg-clr: var(--c-dark-blue);
+  --bg-clr: var(--c-dark-bg-blue);
+  --fg-clr: var(--c-white);
+}
+
+/* -------------------------------------------------------Fonts--------------------------------------------------------------------- */
+/* - Homepage Items: 14px
+- Detail Page: 16px  
+- Weights: 300, 600, 800 */
+
+:root {
+  font-size: 0.7rem;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 300;
+}
+
+@media (min-width:35rem) {
+  :root {
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width:65rem) {
+  :root {
+    font-size: 0.875rem;
+  }
+}
+
+/* --------------------------------------------------Header------------------------------------------------------------------- */
+.header {
+  width: 100%;
+  padding: clamp(0.5em, 2vh + 1em, 1em) clamp(2em, 5vw + 1em, 5em);
+  background-color: var(--card-bg-clr);
+  color: var(--fg-clr);
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 5px 0 10px gray;
+}
+
+.header>h1 {
+  font-weight: 800;
+}
+
+.theme {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 1em;
+  cursor: pointer;
+}
+
+.theme>:first-child {
+  width: 2em;
+  aspect-ratio: 1;
+}
+
+.sun_icon {
+  fill: var(--c-white);
+}
+
+/* -----------------------------------------------------------Main-------------------------------------------------------------- */
+.main {
+  background-color: var(--bg-clr);
+}
+
+
+/* ------------------------------------------------------------Card----------------------------------------------------------- */
+.card {
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card>div>img {
+  object-fit: cover;
+  width: 100%;
+}
+
+.country_info {
+  padding: clamp(1em, 2vw + 1em, 3em);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1em;
+}
+
+.country_name {
+  font-weight: 800;
+}
+
+.country_info span {
+  font-weight: 600;
+}

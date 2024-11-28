@@ -67,12 +67,14 @@ html {
   --card-bg-clr: var(--c-white);
   --bg-clr: var(--c-light-bg-gray);
   --fg-clr: black;
+  --shadow-clr: gray;
 }
 
 html.dark {
   --card-bg-clr: var(--c-dark-blue);
   --bg-clr: var(--c-dark-bg-blue);
   --fg-clr: var(--c-white);
+  --shadow-clr: black;
 }
 
 /* -------------------------------------------------------Fonts--------------------------------------------------------------------- */
@@ -106,7 +108,9 @@ html.dark {
   color: var(--fg-clr);
   display: flex;
   justify-content: space-between;
-  box-shadow: 5px 0 10px gray;
+  box-shadow: 5px 0 10px var(--shadow-clr);
+  position: relative;
+  z-index: 100;
 }
 
 .header>h1 {
@@ -133,29 +137,78 @@ html.dark {
 /* -----------------------------------------------------------Main-------------------------------------------------------------- */
 .main {
   background-color: var(--bg-clr);
+  padding: clamp(2em, 4vh + 1em, 4em) clamp(2em, 5vw + 1em, 5em);
+}
+
+.sort_section {
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
 }
 
 
 /* ------------------------------------------------------------Card----------------------------------------------------------- */
+.grid_card {
+  display: grid;
+  grid-template-columns: repeat(auto, 1fr);
+  gap: clamp(1em, 3vw + 1em, 5em);
+  justify-items: center;
+  align-items: center;
+}
+
+@media (min-width:35rem) {
+  .grid_card {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width:50rem) {
+  .grid_card {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sort_section {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width:65rem) {
+  .grid_card {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 .card {
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  justify-content: space-between;
+  background-color: var(--card-bg-clr);
+  box-shadow: 2px 2px 5px var(--shadow-clr);
+  width: 250px;
+  height: 350px;
+  cursor: pointer;
 }
 
-.card>div>img {
-  object-fit: cover;
+.card>img {
+  display: block;
+  /* aspect-ratio: 250 / 125; */
+  object-fit: contain;
   width: 100%;
+  max-height: 50%;
+  border-radius: 16px 16px 0 0;
 }
 
 .country_info {
-  padding: clamp(1em, 2vw + 1em, 3em);
+  padding: clamp(1em, 1.5vw + .5em, 2.2em);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
   gap: 1em;
+  flex-basis: 50%;
 }
 
 .country_name {

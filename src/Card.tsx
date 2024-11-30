@@ -2,7 +2,7 @@ import { GeneralInfo } from "./parse";
 
 export default function Card({ info }: { info: GeneralInfo }) {
     return (
-        <article className="card">
+        <article className="card shadow">
             <img src={info.flags.png} alt={info.flags.alt} />
             <div className="country_info">
                 <h1 className="country_name">{info.name.common}</h1>

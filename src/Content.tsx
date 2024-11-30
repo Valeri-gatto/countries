@@ -2,18 +2,23 @@ import { useEffect, useState } from "react";
 import Card from "./Card";
 import { Convert, GeneralInfo, Region } from "./parse";
 import AngleDown from "./assets/icons/angle-down.svg?react";
+import MagnifyingGlass from "./assets/icons/magnifying-glass.svg?react";
 import AngleUp from "./assets/icons/angle-up.svg?react";
 
+type Info = GeneralInfo & {
+    allNames: string;
+}
 
 export default function Content() {
-    const [info, setInfo] = useState<GeneralInfo[] | undefined>(undefined);
+    const [info, setInfo] = useState<Info[] | undefined>(undefined);
     const [shownList, setSShownList] = useState(false);
-    const [cardList, setCardList] = useState<GeneralInfo[]>([]);
+    const [cardList, setCardList] = useState<Info[]>([]);
     const [regionsList, setRegionsList] = useState<(Region | 'All')[]>([]);
     const [selectedRegion, setSelectedRegion] = useState<Region | undefined>(undefined);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
 
     const api = 'https://restcountries.com/v3.1/';
-
 
     async function getAPI() {
         const res = await fetch(`${api}all?fields=name,flags,population,capital,region`);
@@ -28,7 +33,12 @@ export default function Content() {
     useEffect(() => {
         async function getGeneralInfo() {
             const data = await getAPI();
-            setInfo(data);
+            const dataWithNames = data.map(c => {
+                const listOfNames = Object.values(c.name.nativeName).flatMap(n => [n.common, n.official]);
+                listOfNames.push(c.name.common, c.name.official);
+                return { ...c, allNames: listOfNames.join('\x00').toLowerCase() };
+            });
+            setInfo(dataWithNames);
         }
         getGeneralInfo();
     }, [])
@@ -43,34 +53,53 @@ export default function Content() {
         if (!info) {
             return
         }
-        if (!selectedRegion) {
-            setCardList(info);
-        } else {
-            const newList = info.filter((country) => country.region === selectedRegion);
-            setCardList(newList);
+        let filtered = info;
+        if (debouncedSearchTerm) {
+            filtered = filtered.filter(country =>
+                country.allNames.includes(debouncedSearchTerm)
+            );
         }
-    }, [selectedRegion, info])
+        if (selectedRegion) {
+            filtered = filtered.filter((country) => country.region === selectedRegion);
+        }
+        setCardList(filtered);
+    }, [selectedRegion, debouncedSearchTerm, info])
+
+    useEffect(() => {
+        const filterTime = setTimeout(() => {
+            const trimStr = searchTerm.trim().toLowerCase();
+            if (trimStr.length >= 2) {
+                setDebouncedSearchTerm(trimStr);
+            } else {
+                setDebouncedSearchTerm('');
+            }
+        }, 100);
+        return () => clearTimeout(filterTime);
+    }, [searchTerm]);
 
 
     return (
         <main className="main">
             <div className="sort_section">
-                <input type="text" />
-                <div className="dropdown" onClick={() => setSShownList(!shownList)}>
+                <div className={searchTerm ? "search active" : "search"}>
+                    {!searchTerm && <MagnifyingGlass className="search_icon" />}
+                    <input value={searchTerm} placeholder='Search for a country...' className="inputCountry shadow" type="text" onChange={(e) => setSearchTerm(e.target.value)} />
+                </div>
+                <div className="dropdown shadow" onClick={() => setSShownList(!shownList)}>
                     <div className="filter_regions">
                         <span>{selectedRegion ?? 'Filter by Region'}</span>
                         {shownList ? <AngleUp /> : <AngleDown />}
                     </div>
-                    {shownList && <div className="regions">
-                        {regionsList.map(reg => <a id={reg} onClick={() => setSelectedRegion(reg === 'All' ? undefined : reg)}>{reg}</a>)}
+                    {shownList && <div className="regions shadow">
+                        {regionsList.map(reg => <a key={reg} onClick={() => setSelectedRegion(reg === 'All' ? undefined : reg)}>{reg}</a>)}
                     </div>}
                 </div>
             </div>
-            <section className="grid_card">
+            {(cardList.length !== 0 || !info) ? (<section className="grid_card">
                 {cardList.map((el, idx) => {
                     return <Card key={idx} info={el} />
                 })}
-            </section>
+            </section>) : (<section className="no_filters"><p>No countries that match specified filters were found :ccc</p></section>)}
         </main>
     )
 }

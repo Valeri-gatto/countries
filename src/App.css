@@ -39,6 +39,7 @@ button,
 textarea,
 select {
   font: inherit;
+  color: inherit;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -101,6 +102,11 @@ html.dark {
   }
 }
 
+/* ---------Utility class------------------------ */
+.shadow {
+  box-shadow: 2px 2px 5px var(--shadow-clr);
+}
+
 /* --------------------------------------------------Header------------------------------------------------------------------- */
 .header {
   width: 100%;
@@ -148,12 +154,44 @@ html.dark {
   gap: 2em;
 }
 
+.search {
+  position: relative;
+}
+
+.search_icon {
+  fill: var(--fg-clr);
+  width: 1em;
+  position: absolute;
+  left: 1.5em;
+  top: calc(50% - .5em);
+}
+
+.inputCountry {
+  border-radius: 8px;
+  border: none;
+  background-color: var(--card-bg-clr);
+  padding: 1em 3.5em;
+}
+
+.search.active .inputCountry {
+  padding-inline: 1.5em;
+}
+
+.inputCountry:focus {
+  outline: 1px solid var(--shadow-clr);
+}
+
+.no_filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .dropdown {
   display: inline-block;
   padding: 1em 1.5em;
   position: relative;
   background-color: var(--card-bg-clr);
-  box-shadow: 2px 2px 5px var(--shadow-clr);
   border-radius: 8px;
   cursor: pointer;
   width: 15rem;
@@ -173,7 +211,6 @@ html.dark {
 .dropdown .regions {
   width: 100%;
   background-color: var(--card-bg-clr);
-  box-shadow: 2px 2px 5px var(--shadow-clr);
   border-radius: 8px;
   padding: 1em 1em;
   position: absolute;
@@ -245,7 +282,6 @@ html.dark {
   flex-direction: column;
   justify-content: space-between;
   background-color: var(--card-bg-clr);
-  box-shadow: 2px 2px 5px var(--shadow-clr);
   width: 250px;
   height: 350px;
   cursor: pointer;

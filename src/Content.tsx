@@ -79,7 +79,7 @@ export default function Content() {
 
 
     return (
-        <main className="main">
+        <>
             <div className="sort_section">
                 <div className={searchTerm ? "search active" : "search"}>
                     {!searchTerm && <MagnifyingGlass className="search_icon" />}
@@ -100,6 +100,6 @@ export default function Content() {
                     return <Card key={idx} info={el} />
                 })}
             </section>) : (<section className="no_filters"><p>No countries that match specified filters were found :ccc</p></section>)}
-        </main>
+        </>
     )
 }

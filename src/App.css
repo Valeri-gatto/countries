@@ -34,11 +34,22 @@ img {
   display: block;
 }
 
+em {
+  font-style: inherit;
+  font-weight: 700;
+}
+
 input,
 button,
 textarea,
 select {
   font: inherit;
+  color: inherit;
+  border: none;
+}
+
+a {
+  text-decoration: none;
   color: inherit;
 }
 
@@ -96,6 +107,7 @@ html.dark {
   }
 }
 
+
 @media (min-width:65rem) {
   :root {
     font-size: 0.875rem;
@@ -105,6 +117,10 @@ html.dark {
 /* ---------Utility class------------------------ */
 .shadow {
   box-shadow: 2px 2px 5px var(--shadow-clr);
+}
+
+.shadow:hover {
+  background-color: hsla(0, 0%, 83%, 0.455);
 }
 
 /* --------------------------------------------------Header------------------------------------------------------------------- */
@@ -168,7 +184,6 @@ html.dark {
 
 .inputCountry {
   border-radius: 8px;
-  border: none;
   background-color: var(--card-bg-clr);
   padding: 1em 3.5em;
 }
@@ -312,4 +327,84 @@ html.dark {
 
 .country_info span {
   font-weight: 600;
+}
+
+/* -------------------------------------------------------------Details-page---------------------------------------------- */
+.back_button {
+  width: 7rem;
+  padding: 1em 1.5em;
+  gap: .5em;
+  display: flex;
+  align-items: center;
+}
+
+.back_button>svg {
+  fill: var(--fg-clr);
+  width: 2em;
+}
+
+.button {
+  background-color: var(--card-bg-clr);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.details_page {
+  font-size: 0.8rem;
+  margin-top: 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 5em;
+}
+
+@media (min-width:35rem) {
+  .details_page {
+    font-size: 0.92rem;
+  }
+}
+
+@media (min-width:50rem) {
+  .details_page {
+    font-size: 1rem;
+  }
+}
+
+.flag {
+  flex-grow: 1;
+  width: 45%;
+}
+
+.countryName {
+  font-weight: 800;
+  font-size: 2.7em;
+  margin-bottom: 1rem;
+}
+
+.details_info {
+  flex-grow: 1;
+  flex-basis: 45%;
+}
+
+.details {
+  display: flex;
+  gap: clamp(5em, 20% + 1em, 17em);
+  width: 100%;
+
+  >.details-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+}
+
+.borders {
+  margin-top: 5em;
+}
+
+.border_link {
+  padding: .3em .5em;
+  font-weight: 300;
+  margin-left: .5em;
+  margin-bottom: .5em;
+  display: inline-block;
 }

@@ -97,7 +97,7 @@ export default function Content() {
             </div>
             {(cardList.length !== 0 || !info) ? (<section className="grid_card">
                 {cardList.map((el, idx) => {
-                    return <Card key={idx} info={el} />
+                    return <a href={`/${el.name.common}`}><Card key={idx} info={el} /></a>
                 })}
             </section>) : (<section className="no_filters"><p>No countries that match specified filters were found :ccc</p></section>)}
         </>

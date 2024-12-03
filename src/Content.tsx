@@ -79,11 +79,11 @@ export default function Content() {
 
 
     return (
-        <>
+        <main className="main">
             <div className="sort_section">
                 <div className={searchTerm ? "search active" : "search"}>
                     {!searchTerm && <MagnifyingGlass className="search_icon" />}
-                    <input value={searchTerm} placeholder='Search for a country...' className="inputCountry shadow" type="text" onChange={(e) => setSearchTerm(e.target.value)} />
+                    <input value={searchTerm} placeholder='Search for a country...' className="input_country shadow" type="text" onChange={(e) => setSearchTerm(e.target.value)} />
                 </div>
                 <div className="dropdown shadow" onClick={() => setSShownList(!shownList)}>
                     <div className="filter_regions">
@@ -97,9 +97,9 @@ export default function Content() {
             </div>
             {(cardList.length !== 0 || !info) ? (<section className="grid_card">
                 {cardList.map((el, idx) => {
-                    return <a href={`/${el.name.common}`}><Card key={idx} info={el} /></a>
+                    return <a key={idx} href={`/${el.name.common}`}><Card info={el} /></a>
                 })}
-            </section>) : (<section className="no_filters"><p>No countries that match specified filters were found :ccc</p></section>)}
-        </>
+            </section>) : (<section className="no_filters"><h2>No countries that match specified filters were found :ccc</h2></section>)}
+        </main>
     )
 }

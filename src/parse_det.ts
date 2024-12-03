@@ -7,7 +7,7 @@ export const NameInfo = z.object({
         nativeName: z.record(z.string(), z.object({
             official: z.string(),
             common: z.string(),
-        }))
+        })).optional(),
     }),
 })
 
@@ -17,11 +17,11 @@ export const DetailInfo = z.object({
     currencies: z.record(z.string(), z.object({
         name: z.string(),
         symbol: z.string(),
-    })),
-    capital: z.string().array(),
+    })).optional(),
+    capital: z.string().array().optional(),
     region: z.string(),
     subregion: z.string().optional(),
-    languages: z.record(z.string(), z.string()),
+    languages: z.record(z.string(), z.string()).optional(),
     borders: z.string().array().optional(),
     population: z.number(),
     flags: z.object({

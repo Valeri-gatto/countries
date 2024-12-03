@@ -1,20 +1,5 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-
-interface IThemeContext {
-    isDark: boolean,
-    toogleTheme: () => void,
-}
-export const ThemeContext = createContext<IThemeContext>(undefined);
-
-export function useTheme() {
-    const context = useContext(ThemeContext);
-
-    if (!context) {
-        throw new Error('context error');
-    }
-
-    return context;
-}
+import { ReactNode, useEffect, useState } from "react";
+import { ThemeContext } from "./Context";
 
 interface ThemeProviderProps {
     children: ReactNode;
@@ -32,8 +17,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
         }
     });
 
-
-    function toogleTheme() {
+    function toggleTheme() {
         setIsDark(!isDark);
     }
     useEffect(() => {
@@ -41,7 +25,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
         localStorage.setItem("theme", isDark ? 'dark' : 'light');
     }, [isDark])
 
-    return <ThemeContext.Provider value={{ isDark, toogleTheme }}>
+    return <ThemeContext.Provider value={{ isDark, toggleTheme: toggleTheme }}>
         {children}
     </ThemeContext.Provider>
 }

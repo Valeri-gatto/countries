@@ -4,6 +4,7 @@ import { Convert, GeneralInfo, Region } from "./parse";
 import AngleDown from "./assets/icons/angle-down.svg?react";
 import MagnifyingGlass from "./assets/icons/magnifying-glass.svg?react";
 import AngleUp from "./assets/icons/angle-up.svg?react";
+import { Link } from "react-router-dom";
 
 type Info = GeneralInfo & {
     allNames: string;
@@ -91,13 +92,13 @@ export default function Content() {
                         {shownList ? <AngleUp /> : <AngleDown />}
                     </div>
                     {shownList && <div className="regions shadow">
-                        {regionsList.map(reg => <a key={reg} onClick={() => setSelectedRegion(reg === 'All' ? undefined : reg)}>{reg}</a>)}
+                        {regionsList.map(reg => <span key={reg} onClick={() => setSelectedRegion(reg === 'All' ? undefined : reg)}>{reg}</span>)}
                     </div>}
                 </div>
             </div>
             {(cardList.length !== 0 || !info) ? (<section className="grid_card">
                 {cardList.map((el, idx) => {
-                    return <a key={idx} href={`/${el.name.common}`}><Card info={el} /></a>
+                    return <Link key={idx} to={`/${el.name.common}`}><Card info={el} /></Link>
                 })}
             </section>) : (<section className="no_filters"><h2>No countries that match specified filters were found :ccc</h2></section>)}
         </main>

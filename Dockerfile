@@ -22,7 +22,7 @@ ENV NODE_ENV=production
 
 RUN npm run build
 
-FROM nginx:mainline-alpine as runner
+FROM nginx:mainline-alpine AS runner
 
 COPY nginx.conf /etc/nginx/nginx.conf
 

@@ -242,7 +242,7 @@ html.dark {
   border-bottom: 1px solid var(--fg-clr);
 }
 
-.dropdown .regions a {
+.dropdown .regions span {
   display: inline-block;
   text-decoration: none;
   color: inherit;
@@ -250,7 +250,7 @@ html.dark {
   padding-left: .5em;
 }
 
-.dropdown .regions a:hover {
+.dropdown .regions span:hover {
   background-color: var(--hovered);
   border-radius: 8px;
 }

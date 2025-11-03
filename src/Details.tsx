@@ -76,7 +76,7 @@ export default function Details() {
                     </div>
                     <div className="borders"><em>Border countries: </em>{info.borders ? info.borders.map(el => {
                         const name = codeInfo?.[el];
-                        return name && <a key={el} href={`/${name}`} className="button border_link shadow" >{name}</a>;
+                        return name && <Link key={el} to={`/${name}`} className="button border_link shadow" >{name}</Link>;
                     }) : EM_DASH}</div>
                 </div>
             </section >
